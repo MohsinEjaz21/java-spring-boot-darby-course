@@ -1,0 +1,57 @@
+<!-- log4j2 xml -->
+<Configuration>
+	<Appenders>
+		<Console name="console" target="SYSTEM_OUT">
+			<PatternLayout
+				pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n" />
+		</Console>
+	</Appenders>
+
+	<Loggers>
+		<Root level="INFO">
+			<AppenderRef ref="console" />
+		</Root>
+
+		<logger name="org.hibernate.SQL" additivity="false">
+			<level value="DEBUG" />
+		</logger>
+
+		<logger name="org.hibernate.type" additivity="false">
+			<level value="TRACE" />
+		</logger>
+
+	</Loggers>
+
+</Configuration>
+
+<!--
+			<Logger name="org.hibernate.type.descriptor.sql.BasicBinder"
+			level="trace">
+			<AppenderRef ref="Console" />
+		</Logger>
+		<Logger name="org.hibernate.type.EnumType" level="trace">
+			<AppenderRef ref="Console" />
+		</Logger>
+
+		log4j.logger.org.hibernate.SQL=trace
+		<Logger name="log4j.logger.org.hibernate.SQL" level="info">
+			<AppenderRef ref="Console" />
+		</Logger>
+
+		<Root level="INFO">
+			<AppenderRef ref="console" />
+		</Root>
+
+		<logger name="org.hibernate.SQL" additivity="false">
+			<level value="DEBUG" />
+			<appender-ref ref="SQLROLLINGFILE" />
+		</logger>
+
+		<logger name="org.hibernate.type" additivity="false">
+			<level value="TRACE" />
+			<appender-ref ref="SQLROLLINGFILE" />
+		</logger>
+
+-->
+
+
