@@ -15,6 +15,7 @@ import javax.persistence.Table;
 @Table(name="instructor")
 public class Instructor {
 
+  public Instructor() {}
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="id")
@@ -39,16 +40,16 @@ public class Instructor {
   // * How to read it ?
   //   Many courses are taught by one instructor
 	@OneToMany(mappedBy="instructor", cascade={
+	    CascadeType.PERSIST,
+	    CascadeType.MERGE, 
       CascadeType.DETACH, 
-      CascadeType.MERGE, 
-      CascadeType.PERSIST,
-      CascadeType.REFRESH
-    } )
+      CascadeType.REFRESH,
+      CascadeType.REMOVE
+    })
 	private List<Course> courses;
 	
 
 	public Instructor(String firstName, String lastName, String email) {
-	  super();
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
@@ -85,14 +86,23 @@ public class Instructor {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+	
+  public List<Course> getCourses() {
+    return courses;
+  }
+
+  public void setCourses(List<Course> courses) {
+    this.courses = courses;
+  }
 
   @Override
   public String toString() {
     return "Instructor [id=" + id + ", " + (firstName != null ? "firstName=" + firstName + ", " : "")
-        + (lastName != null ? "lastName=" + lastName + ", " : "") + (email != null ? "email=" + email + ", " : "")
-        + (courses != null ? "courses=" + courses : "") + "]";
+        + (lastName != null ? "lastName=" + lastName + ", " : "") + (email != null ? "email=" + email : "") + "]";
   }
-	
+
+
+  
 }
 
 

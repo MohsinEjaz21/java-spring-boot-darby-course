@@ -13,13 +13,15 @@ import javax.persistence.Table;
 @Entity
 @Table(name="course")
 public class Course {
+  
+  public Course() {}
 
   @Id
   @GeneratedValue(strategy=GenerationType.IDENTITY)
   @Column(name="id")
   private int id;
   
-  @Column(name="title")
+  @Column(name="title", unique=true)
   private String title;
   
   // * little trick to rememeber where to use Many -> One is see after '->'
@@ -27,19 +29,19 @@ public class Course {
   // * How to read it ?
   //   One instructor can taught many courses
   @ManyToOne(cascade={
-      CascadeType.DETACH, 
-      CascadeType.MERGE, 
       CascadeType.PERSIST,
+      CascadeType.MERGE, 
+      CascadeType.DETACH, 
       CascadeType.REFRESH
     })
   @JoinColumn(name="instructor_id")
   private Instructor instructor;
 
+
+
   @Override
   public String toString() {
-    return "Course [id=" + id + ", " + (title != null ? "title=" + title + ", " : "") + (instructor != null
-        ? "instructor=" + instructor
-        : "") + "]";
+    return "Course [id=" + id + ", " + (title != null ? "title=" + title : "") + "]";
   }
 
   public int getId() {
@@ -66,11 +68,15 @@ public class Course {
     this.instructor = instructor;
   }
 
-  public Course(int id, String title, Instructor instructor) {
+  public Course( String title, Instructor instructor) {
     super();
-    this.id = id;
     this.title = title;
     this.instructor = instructor;
+  }
+
+  public Course( String title) {
+    super();
+    this.title = title;
   }
 
   
