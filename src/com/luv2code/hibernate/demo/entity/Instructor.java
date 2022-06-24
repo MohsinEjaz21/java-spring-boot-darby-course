@@ -1,10 +1,14 @@
 package com.luv2code.hibernate.demo.entity;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -25,12 +29,26 @@ public class Instructor {
 	@Column(name="email")
 	private String email;
 	
-
-	public Instructor() {
-		
-	}
+	
+	// * look instructor in courses and by using join column pull out the information
+	//   about courses associated to the instructor
+	// * Cascade doesnot include Remove , b/c the requirement is not to remove entity
+	//   courses if instructor is removed
+	// * little trick to rememeber where to use one -> Many is see after '->'
+	//   which is Many (so courses are many see below)
+  // * How to read it ?
+  //   Many courses are taught by one instructor
+	@OneToMany(mappedBy="instructor", cascade={
+      CascadeType.DETACH, 
+      CascadeType.MERGE, 
+      CascadeType.PERSIST,
+      CascadeType.REFRESH
+    } )
+	private List<Course> courses;
+	
 
 	public Instructor(String firstName, String lastName, String email) {
+	  super();
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
@@ -68,7 +86,12 @@ public class Instructor {
 		this.email = email;
 	}
 
-
+  @Override
+  public String toString() {
+    return "Instructor [id=" + id + ", " + (firstName != null ? "firstName=" + firstName + ", " : "")
+        + (lastName != null ? "lastName=" + lastName + ", " : "") + (email != null ? "email=" + email + ", " : "")
+        + (courses != null ? "courses=" + courses : "") + "]";
+  }
 	
 }
 
