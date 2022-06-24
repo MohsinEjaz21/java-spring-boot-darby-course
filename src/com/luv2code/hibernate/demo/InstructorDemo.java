@@ -33,7 +33,8 @@ public class InstructorDemo {
       
       
 //      findInstructorDetailById(session);
-      addInstructorDetail(session);
+      deleteInstructorDetailWithoutCascade(session);
+//      addInstructorDetail(session);
       // commit transaction
       session.getTransaction().commit();
 
@@ -110,7 +111,7 @@ public class InstructorDemo {
     // * MUST check CascadeType.All is not used otherwise code purpose
     // not to delete associated entity fails
     if(instructorDetail !=null) {
-      instructorDetail.getInstructor().setInstructorDetail(null);      
+//      instructorDetail.getInstructor().setInstructorDetail(null);      
       session.delete(instructorDetail);
     }
     
