@@ -3,12 +3,18 @@ package com.luv2code.hibernate.demo.entity;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+
 
 @Entity
 @Table(name="course")
@@ -25,16 +31,16 @@ public class Course {
   private String title;
   
   
-//  @ManyToMany(
-//  fetch=FetchType.LAZY,
-//  cascade= {CascadeType.PERSIST, CascadeType.MERGE,
-//      CascadeType.DETACH, CascadeType.REFRESH}
-//  )
-//  @JoinTable(
-//    name="course_student",
-//    joinColumns=@JoinColumn(name="course_id"),
-//    inverseJoinColumns=@JoinColumn(name="student_id")
-//   )
+  @ManyToMany(
+  fetch=FetchType.LAZY,
+  cascade= {CascadeType.PERSIST, CascadeType.MERGE,
+      CascadeType.DETACH, CascadeType.REFRESH}
+  )
+  @JoinTable(
+    name="course_student",
+    joinColumns=@JoinColumn(name="course_id"),
+    inverseJoinColumns=@JoinColumn(name="student_id")
+   )
   private List<Student> students;
 
 
