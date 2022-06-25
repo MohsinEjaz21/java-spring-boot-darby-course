@@ -21,6 +21,15 @@ import javax.persistence.Table;
 public class Course {
   
   public Course() {}
+  
+  
+
+  public Course(String title) {
+    super();
+    this.title = title;
+  }
+
+
 
   @Id
   @GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -80,12 +89,6 @@ public class Course {
   }
 
 
-  public Course(String title, List<Student> students) {
-    super();
-    this.title = title;
-    this.students = students;
-  }
-  
   public void addStudent(Student student) {
     if(students == null) {
       students = new ArrayList<>();
